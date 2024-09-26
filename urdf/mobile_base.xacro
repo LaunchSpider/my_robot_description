@@ -21,7 +21,13 @@
             <origin xyz="0 0 ${base_height / 2}" rpy="0 0 0"></origin>
             <material name="green"/>
         </visual>
-        <xacro:box_inertia m="5.0" l="${base_length}" w="${base_width}" h="${base_height}" xyz="0 0 ${base_height / 2}" rpy="0 0 0" />
+        <collision>
+            <geometry>
+                <box size="${base_length} ${base_width} ${base_height}"></box>
+            </geometry>
+            <origin xyz="0 0 ${base_height / 2}" rpy="0 0 0"></origin>
+        </collision>
+        <xacro:box_inertia m="5.0" l="${2*base_length}" w="${2*base_width}" h="${2*base_height}" xyz="0 0 ${base_height / 2}" rpy="0 0 0" />
     </link>
 
     <xacro:macro name="wheel_link" params="prefix">
@@ -33,6 +39,13 @@
                 <origin xyz="0 0 0" rpy="0 0 0"></origin>
                 <material name="gray"/>
             </visual>
+            <collision>
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="0 0 0"></origin>
+            </collision>
+            <xacro:wheel_inertia m="1.0" r="${2*wheel_radius}" h="${2*wheel_length}" xyz="0 0 0" rpy="0 0 0" />
         </link>
     </xacro:macro>
 
@@ -48,6 +61,13 @@
             <origin xyz="0 0 0" rpy="0 0 0"></origin>
             <material name="gray"/>
         </visual>
+        <collision>
+            <geometry>
+                <sphere radius="${wheel_radius / 2}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"></origin>
+        </collision>
+        <xacro:ball_inertia m="0.5" r="${2*wheel_radius / 2}" xyz="0 0 0" rpy="0 0 0" />
     </link>
 
     <joint name="base_right_wheel_joint" type="continuous">
